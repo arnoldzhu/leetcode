@@ -6,30 +6,30 @@ using namespace std;
 
 class Solution {
 public:
-    vector<vector<int>> final;
-
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<int> res;
-        Backtrack(nums, res);
-        return final;
+        vector<vector<int>> res;
+        Backtrack(res, nums, 0, (int)nums.size());
+        return res;
     }
 
-    void Backtrack(vector<int>& nums, vector<int>& res) {
-        
-        if(nums.size() == 0) {
-            final.push_back(res);
+    void Backtrack(vector<vector<int>>& res, vector<int>& output, int first, int length) {
+        if(first == length) {
+            res.push_back(output);
             return;
         }
         else {
-            for(int i = 0; i < nums.size(); ++i) {
-                int temp = nums[i];
-                res.push_back(temp);
-                nums.erase(nums.begin()+i);
-                Backtrack(nums, res);
-                res.pop_back();
-                nums.insert(nums.begin()+i, temp);
+            for(int i = first; i < length; ++i) {
+                swap(output[first], output[i]);
+                Backtrack(res, output, first+1, length);
+                swap(output[first], output[i]);
             }
         }
+    }
+
+    void swap(int& a, int& b) {
+        int temp = a;
+        a = b;
+        b = temp;
     }
 };
 
@@ -50,7 +50,6 @@ int main()
     }
 
     // end of test code
-
     system("pause");
     return 0;
 }

@@ -50,7 +50,6 @@ int main()
     }
 
     // end of test code
-
     system("pause");
     return 0;
 }
